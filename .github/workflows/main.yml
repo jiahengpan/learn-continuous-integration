@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - deploy  # Added deploy branch to trigger on push
 
   pull_request:
     branches:
@@ -11,7 +12,7 @@ on:
 
 jobs:
   "run-jest-tests":
-    runs-on: cs5500-self-hosted
+    runs-on: self-hosted
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -21,3 +22,20 @@ jobs:
 
       - name: Run Tests
         run: npm run test
+        
+  "setup-database":
+    runs-on: self-hosted
+    # Only run this job when pushing to deploy branch
+    if: github.event_name == 'push' && github.ref == 'refs/heads/deploy'
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        
+      - name: Install Dependencies
+        run: npm install
+        
+      - name: Remove existing database
+        run: node remove_db.ts
+        
+      - name: Insert sample data
+        run: node insert_sample_db.ts
