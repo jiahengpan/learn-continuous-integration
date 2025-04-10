@@ -7,7 +7,7 @@ import mongoose, { Schema, Document, Model, FilterQuery } from 'mongoose';
  * @property date_of_birth - The author's date of birth.
  * @property date_of_death - The author's date of death.
  * @property name - The author's full name.
- * @property lifespan - The author's lifespan. 'this is main'
+ * @property lifespan - The author's lifespan. 
  */
 export interface IAuthor extends Document {
   first_name: string;
