@@ -7,7 +7,7 @@ on:
 
 jobs: 
   "setup-database":
-    runs-on: elf-hosted
+    runs-on: self-hosted
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
